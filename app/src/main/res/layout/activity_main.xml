@@ -7,24 +7,21 @@
     tools:context="com.example.mrehman.vieweditandroid.MainActivity">
 
     <LinearLayout
+        android:id="@+id/linlaymain"
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="-204dp">
 
-        <Button
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LEFT SWIPE"
-            android:id="@+id/lswipe"/>
-
-        <Button
-            android:id="@+id/rswipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:text="RIGHT SWIPE" />
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.59"
+            android:src="@drawable/viewedit" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
