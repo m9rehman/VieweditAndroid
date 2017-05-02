@@ -83,6 +83,18 @@ public class MainActivity extends AppCompatActivity {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
+    public void removeLibrary(){
+        getSupportFragmentManager().beginTransaction().remove(
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
+
+    }
+
+    public void removeNotifications(){
+        getSupportFragmentManager().beginTransaction().remove(
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,14 +123,20 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeRight() {
                 Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                if (fragment == null) {
+                    Fragment fragmentRight = new LibraryFragment();
+                    fm.beginTransaction()
+                            .add(R.id.fragment_container, fragmentRight)
+                            .commit();
+                }
             }
             public void onSwipeLeft() {
+
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
                 if (fragment == null) {
-                    Fragment fragment2 = new NotificationsFragment();
-                    final Fragment fragmentLeft = fragment2;
+                    Fragment fragmentLeft = new NotificationsFragment();
                     fm.beginTransaction()
-                            .add(R.id.fragment_container, fragment2)
+                            .add(R.id.fragment_container, fragmentLeft)
                             .commit();
                 }
             }
