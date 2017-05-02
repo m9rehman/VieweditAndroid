@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "648924678432",
+    "project_id": "vieweditandroid"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648924678432:android:6cb413159f26d3d9",
+        "android_client_info": {
+          "package_name": "com.example.mrehman.vieweditandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdbHngFdyNAYXntwotp0wT-OyuNzu96no"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
