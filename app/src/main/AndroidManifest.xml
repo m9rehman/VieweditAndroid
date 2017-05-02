@@ -7,10 +7,10 @@
         android:protectionLevel="signature" />
     <uses-permission
         android:name="com.example.mrehman.vieweditandroid.permission.C2D_MESSAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera2.full" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

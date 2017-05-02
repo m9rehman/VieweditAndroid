@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        final FragmentManager fm = getSupportFragmentManager();
+        final Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
+//        if (fragment == null){
+//
+//
+//        }
+
 
 
         //Linear Layout Swiping Functionality
@@ -104,6 +114,13 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeLeft() {
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                if (fragment == null) {
+                    Fragment fragment2 = new NotificationsFragment();
+                    final Fragment fragmentLeft = fragment2;
+                    fm.beginTransaction()
+                            .add(R.id.fragment_container, fragment2)
+                            .commit();
+                }
             }
             public void onSwipeBottom() {
                 Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
