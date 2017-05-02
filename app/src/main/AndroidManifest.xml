@@ -27,6 +27,21 @@
     <service
         android:name=".RegistrationService"
         android:exported="false"/>
+    <service
+        android:name=".TokenRefreshListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.gms.iid.InstanceID" />
+        </intent-filter>
+    </service>
+
+    <service
+        android:name=".NotificationsListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        </intent-filter>
+    </service>
 
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"

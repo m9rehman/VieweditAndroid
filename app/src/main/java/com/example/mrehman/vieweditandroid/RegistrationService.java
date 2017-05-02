@@ -25,10 +25,12 @@ public class RegistrationService extends IntentService {
     protected void onHandleIntent(Intent intent){
         InstanceID myID = InstanceID.getInstance(this);
 
+
         try {
             String registrationToken = myID.getToken(getString(R.string.gcm_defaultSenderId),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE);
-            Log.d("TOKEN",registrationToken);
+            Log.d("REG_TOKEN",registrationToken);
+
 
             GcmPubSub subscription = GcmPubSub.getInstance(this);
             subscription.subscribe(registrationToken, "/topics/my_little_topic", null);
@@ -36,7 +38,8 @@ public class RegistrationService extends IntentService {
 
         }
         catch (IOException ex){
-            Log.e("EXCEPTION", "Device registration failed", ex);
+            Log.e("EXCEPTION_REGISTRATION", "Device registration failed", ex);
+
         }
 
 
