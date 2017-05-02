@@ -24,6 +24,10 @@
         </activity>
     </application>
 
+    <service
+        android:name=".RegistrationService"
+        android:exported="false"/>
+
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"
         android:exported="true"
