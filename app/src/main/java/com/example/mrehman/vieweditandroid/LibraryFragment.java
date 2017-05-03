@@ -35,7 +35,7 @@ public class LibraryFragment extends Fragment {
             public void onSwipeLeft() {
                 Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
 //                getActivity().onBackPressed();
-                ((MainActivity)getActivity()).removeLibrary();
+                ((MainActivity)getActivity()).removeFragment();
             }
 
 

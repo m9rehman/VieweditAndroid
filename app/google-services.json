@@ -1,20 +1,35 @@
 {
   "project_info": {
-    "project_number": "648924678432",
-    "project_id": "vieweditandroid"
+    "project_number": "468788077894",
+    "firebase_url": "https://vieweditandroid-b17dc.firebaseio.com",
+    "project_id": "vieweditandroid-b17dc",
+    "storage_bucket": "vieweditandroid-b17dc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:648924678432:android:6cb413159f26d3d9",
+        "mobilesdk_app_id": "1:468788077894:android:6cb413159f26d3d9",
         "android_client_info": {
           "package_name": "com.example.mrehman.vieweditandroid"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "468788077894-u5mk6kagshd8h421efghamlqfv3pibrd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mrehman.vieweditandroid",
+            "certificate_hash": "5d6fef3652897cabaf630b6be58ca4065f490875"
+          }
+        },
+        {
+          "client_id": "468788077894-ithbel8bi0k1a6v769gvntc8h6rhlkco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDdbHngFdyNAYXntwotp0wT-OyuNzu96no"
+          "current_key": "AIzaSyCfaiw8Jw_sgdwT3xKW5jeCPe7pIfoFqg8"
         }
       ],
       "services": {
@@ -22,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468788077894-ithbel8bi0k1a6v769gvntc8h6rhlkco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

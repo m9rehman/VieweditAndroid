@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 
 /**
@@ -15,9 +16,26 @@ import android.webkit.WebViewClient;
  */
 public class NotificationsFragment extends Fragment {
 
-
+    private WebView mwebView;
     public NotificationsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mwebView = (WebView) getView().findViewById(R.id.notif_webview);
+        mwebView.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
+
+            public void onSwipeRight() {
+                Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
+//                getActivity().onBackPressed();
+                ((MainActivity)getActivity()).removeFragment();
+            }
+
+
+        });
+
     }
 
 

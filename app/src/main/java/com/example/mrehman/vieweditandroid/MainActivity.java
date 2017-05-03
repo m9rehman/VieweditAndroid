@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -58,6 +59,9 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
     private CaptureRequest.Builder mPreviewBuilder;
     private CameraCaptureSession mPreviewSession;
 
+    MediaRecorder mMediaRecorderLow = new MediaRecorder();
+    MediaRecorder mMediaRecorderHigh = new MediaRecorder();
+    CaptureRequest mCaptureRequest;
+    CameraCaptureSession mSession;
+    boolean recording = false;
+
     private ImageButton mBtnShot;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -83,13 +93,7 @@ public class MainActivity extends AppCompatActivity {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    public void removeLibrary(){
-        getSupportFragmentManager().beginTransaction().remove(
-                getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
-
-    }
-
-    public void removeNotifications(){
+    public void removeFragment(){
         getSupportFragmentManager().beginTransaction().remove(
                 getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
 
@@ -106,21 +110,13 @@ public class MainActivity extends AppCompatActivity {
         final FragmentManager fm = getSupportFragmentManager();
         final Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-//        if (fragment == null){
-//
-//
-//        }
 
 
 
         //Linear Layout Swiping Functionality
         mlinlayout = (LinearLayout) findViewById(R.id.linlaymain);
-        Intent i = new Intent(this, RegistrationService.class);
-        startService(i);
         mlinlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-            public void onSwipeTop() {
-                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
-            }
+
             public void onSwipeRight() {
                 Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
                 if (fragment == null) {
@@ -140,9 +136,15 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                 }
             }
-            public void onSwipeBottom() {
-                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-            }
+//            public void onSwipeBottom() {
+//                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+//                if (fragment == null) {
+//                    Fragment fragmentTop = new SettingsFragment();
+//                    fm.beginTransaction()
+//                            .replace(R.id.fragment_container, fragmentTop)
+//                            .commit();
+//                }
+//            }
 
         });
 
@@ -150,17 +152,32 @@ public class MainActivity extends AppCompatActivity {
         mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
 
         mBtnShot = (ImageButton)findViewById(R.id.btn_takepicture);
+
+        mBtnShot.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return false;
+            }
+        });
+
         mBtnShot.setOnClickListener(new OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "mBtnShot clicked");
                 takePicture();
+                String token = FirebaseInstanceId.getInstance().getToken();
+
+                Log.d("POO",token);
+//                Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
             }
 
         });
 
     }
+
+
 
     protected void takePicture() {
         Log.e(TAG, "takePicture");
