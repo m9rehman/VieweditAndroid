@@ -5,7 +5,11 @@ import android.Manifest;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.media.MediaRecorder;
+import android.media.session.MediaController;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -58,6 +62,7 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.widget.VideoView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private LinearLayout mlinlayout;
+    private final static int CAMERA_RQ = 6969;
 
     private final static String TAG = "Camera2testJ";
     private Size mPreviewSize;
@@ -76,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
     private CaptureRequest.Builder mPreviewBuilder;
     private CameraCaptureSession mPreviewSession;
 
-    MediaRecorder mMediaRecorderLow = new MediaRecorder();
-    MediaRecorder mMediaRecorderHigh = new MediaRecorder();
-    CaptureRequest mCaptureRequest;
-    CameraCaptureSession mSession;
-    boolean recording = false;
+//    MediaRecorder mMediaRecorderLow = new MediaRecorder();
+//    MediaRecorder mMediaRecorderHigh = new MediaRecorder();
+//    CaptureRequest mCaptureRequest;
+//    CameraCaptureSession mSession;
+//    boolean recording = false;
 
     private ImageButton mBtnShot;
 
@@ -98,6 +104,48 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
 
     }
+
+//    private static final int VIDEO_CAPTURE = 101;
+//    Uri videoUri;
+//    public void startRecordingVideo() {
+//        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+//            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//            File mediaFile = new File(
+//                    Environment.getExternalStorageDirectory().getAbsolutePath() + "/myvideo.mp4");
+//            videoUri = Uri.fromFile(mediaFile);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+//            startActivityForResult(intent, VIDEO_CAPTURE);
+//        } else {
+//            Toast.makeText(this, "No camera on device", Toast.LENGTH_LONG).show();
+//        }
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        if (requestCode == VIDEO_CAPTURE) {
+////            if (resultCode == RESULT_OK) {
+////                Toast.makeText(this, "Video has been saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
+////                playbackRecordedVideo();
+////            } else if (resultCode == RESULT_CANCELED) {
+////                Toast.makeText(this, "Video recording cancelled.",  Toast.LENGTH_LONG).show();
+////            } else {
+////                Toast.makeText(this, "Failed to record video",  Toast.LENGTH_LONG).show();
+////            }
+////        }
+//        Toast.makeText(this,"ACTIVITYRESULT",Toast.LENGTH_SHORT).show();
+//    }
+//
+//    public void playbackRecordedVideo() {
+////        VideoView mVideoView = (VideoView) findViewById(R.id.video_view);
+////        mVideoView.setVideoURI(videoUri);
+////        mVideoView.setMediaController(new MediaController(this));
+////        mVideoView.requestFocus();
+////        mVideoView.start();
+//
+//        Toast.makeText(this,"PLAYBACK",Toast.LENGTH_SHORT).show();
+//    }
+
+    // [BEGIN: VIDEO RECORDING]
+
 
 
     @Override
@@ -136,15 +184,15 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                 }
             }
-//            public void onSwipeBottom() {
-//                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-//                if (fragment == null) {
-//                    Fragment fragmentTop = new SettingsFragment();
-//                    fm.beginTransaction()
-//                            .replace(R.id.fragment_container, fragmentTop)
-//                            .commit();
-//                }
-//            }
+            public void onSwipeBottom() {
+                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                if (fragment == null) {
+                    Fragment fragmentTop = new CameraFragment();
+                    fm.beginTransaction()
+                            .replace(R.id.fragment_container, fragmentTop)
+                            .commit();
+                }
+            }
 
         });
 
@@ -153,20 +201,21 @@ public class MainActivity extends AppCompatActivity {
 
         mBtnShot = (ImageButton)findViewById(R.id.btn_takepicture);
 
-        mBtnShot.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
 
-                return false;
-            }
-        });
 
         mBtnShot.setOnClickListener(new OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "mBtnShot clicked");
-                takePicture();
+//                takePicture();
+//                startRecordingVideo();
+                Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                String path = Environment.getExternalStorageDirectory().getPath()+"videocapture_example.mp4";
+                videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, path);
+                Log.d(TAG,path);
+                startActivityForResult(videoIntent,0);
+                Toast.makeText(MainActivity.this,path,Toast.LENGTH_LONG).show();
                 String token = FirebaseInstanceId.getInstance().getToken();
 
                 Log.d("POO",token);

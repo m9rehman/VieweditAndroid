@@ -2,19 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mrehman.vieweditandroid">
 
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <uses-feature android:name="android.hardware.camera2.full" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-
-
-
-
-
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.camera" />
 
 
     <application
@@ -24,14 +24,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
+        <activity
+            android:name=".MainActivity">
             <service android:name=".FCMNotifService">
                 <intent-filter>
-                    <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                    <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 </intent-filter>
             </service>
-
             <service android:name=".RegistrationFCMService">
                 <intent-filter>
                     <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -45,10 +44,6 @@
             </intent-filter>
         </activity>
 
-        {% includecode github_path="firebase/quickstart-android/messaging/app/src/main/AndroidManifest.xml"
-        region_tag="fcm_default_icon" adjust_indentation="auto" github_link=True %}
-        {% includecode github_path="firebase/quickstart-android/messaging/app/src/main/AndroidManifest.xml"
-        region_tag="firebase_service" adjust_indentation="auto" github_link=True %}
     </application>
 
 </manifest>
