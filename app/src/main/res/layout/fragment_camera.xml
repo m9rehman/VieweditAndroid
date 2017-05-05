@@ -6,12 +6,28 @@
     android:background="#FFFFFF"
     tools:context="com.example.mrehman.vieweditandroid.CameraFragment">
 
+    <TextureView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/textureView"/>
+    <ImageButton
+        android:id="@+id/shareBtn"
+        android:layout_width="268dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center"
+        android:background="#00ffffff"
+        android:src="@drawable/share"
+        android:scaleX="1.30"
+        android:scaleY="1.30"
+        android:alpha="0.90"
 
 
-<TextureView
-    android:layout_width="@dimen/texture_view_height"
-    android:layout_height="@dimen/texture_view_width"
-    android:id="@+id/"/>
+        android:layout_marginBottom="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+
 
 
     </RelativeLayout>

@@ -28,7 +28,7 @@ public class NotificationsFragment extends Fragment {
         mwebView.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
 
             public void onSwipeRight() {
-                Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
 //                getActivity().onBackPressed();
                 ((MainActivity)getActivity()).removeFragment();
             }
@@ -53,7 +53,7 @@ public class NotificationsFragment extends Fragment {
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webView.setScrollbarFadingEnabled(false);
 
-        webView.loadUrl("https://www.vidyard.com");
+        webView.loadUrl("https://get-served-viewedit.herokuapp.com/Feed.html");
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

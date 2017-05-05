@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import android.content.pm.PackageManager;
 import android.graphics.Camera;
+import android.graphics.PixelFormat;
 import android.media.MediaRecorder;
 import android.media.session.MediaController;
 import android.net.Uri;
@@ -16,6 +17,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -71,8 +75,12 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 public class MainActivity extends AppCompatActivity {
 
 
+
+
     private LinearLayout mlinlayout;
     private final static int CAMERA_RQ = 6969;
+
+
 
     private final static String TAG = "Camera2testJ";
     private Size mPreviewSize;
@@ -89,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 //    boolean recording = false;
 
     private ImageButton mBtnShot;
+    private ImageButton mLibBtn;
+    private ImageButton mNotifBtn;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -160,13 +170,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         //Linear Layout Swiping Functionality
         mlinlayout = (LinearLayout) findViewById(R.id.linlaymain);
         mlinlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
             public void onSwipeRight() {
-                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
                 if (fragment == null) {
                     Fragment fragmentRight = new LibraryFragment();
                     fm.beginTransaction()
@@ -176,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeLeft() {
 
-                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
                 if (fragment == null) {
                     Fragment fragmentLeft = new NotificationsFragment();
                     fm.beginTransaction()
@@ -185,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             public void onSwipeBottom() {
-                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
                 if (fragment == null) {
                     Fragment fragmentTop = new CameraFragment();
                     fm.beginTransaction()
@@ -200,6 +209,36 @@ public class MainActivity extends AppCompatActivity {
         mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
 
         mBtnShot = (ImageButton)findViewById(R.id.btn_takepicture);
+        mLibBtn = (ImageButton) findViewById(R.id.btn_lib);
+        mNotifBtn = (ImageButton) findViewById(R.id.btn_notif);
+
+        mLibBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fragment == null) {
+                    Fragment fragmentRight = new LibraryFragment();
+                    fm.beginTransaction()
+                            .add(R.id.fragment_container, fragmentRight)
+                            .setCustomAnimations(R.anim.slide_right, R.anim.slide_left_exit).commit();
+
+                }
+
+            }
+        });
+
+        mNotifBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (fragment == null) {
+                    Fragment fragmentRight = new NotificationsFragment();
+                    fm.beginTransaction()
+                            .add(R.id.fragment_container, fragmentRight)
+                            .commit();
+                }
+
+            }
+        });
 
 
 
@@ -215,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, path);
                 Log.d(TAG,path);
                 startActivityForResult(videoIntent,0);
-                Toast.makeText(MainActivity.this,path,Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this,path,Toast.LENGTH_LONG).show();
                 String token = FirebaseInstanceId.getInstance().getToken();
 
                 Log.d("POO",token);
@@ -316,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                                                CaptureRequest request, TotalCaptureResult result) {
 
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(MainActivity.this, "Saved:"+file, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "Saved:"+file, Toast.LENGTH_SHORT).show();
                     startPreview();
                 }
 
@@ -479,7 +518,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onConfigureFailed(CameraCaptureSession session) {
 
-                    Toast.makeText(MainActivity.this, "onConfigureFailed", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "onConfigureFailed", Toast.LENGTH_LONG).show();
                 }
             }, null);
         } catch (CameraAccessException e) {

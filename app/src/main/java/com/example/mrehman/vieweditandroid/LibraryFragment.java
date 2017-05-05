@@ -33,7 +33,7 @@ public class LibraryFragment extends Fragment {
         mwebView.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
 
             public void onSwipeLeft() {
-                Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "BACK", Toast.LENGTH_SHORT).show();
 //                getActivity().onBackPressed();
                 ((MainActivity)getActivity()).removeFragment();
             }
@@ -59,7 +59,7 @@ public class LibraryFragment extends Fragment {
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webView.setScrollbarFadingEnabled(false);
 
-        webView.loadUrl("https://www.google.com");
+        webView.loadUrl("https://get-served-viewedit.herokuapp.com/library.html");
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
